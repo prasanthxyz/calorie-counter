@@ -62,6 +62,6 @@ steps:
     azureSubscription: 'Visual Studio Enterprise (175096bb-f044-4bdb-b85b-89df5352c518)'
     appType: 'webAppLinux'
     appName: 'calorie-counter-api'
-    package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+    package: '$(System.DefaultWorkingDirectory)/_prasanthxyz.calorie-counter/drop/$(Build.BuildId).zip'
     runtimeStack: 'PYTHON|3.7'
     startUpCommand: './manage.py runserver 80'
