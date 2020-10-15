@@ -54,11 +54,9 @@ steps:
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Visual Studio Enterprise (175096bb-f044-4bdb-b85b-89df5352c518)'
-    appType: 'webAppLinux'
+    appType: 'webApp'
     WebAppName: 'calorie-counter-api'
     packageForLinux: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
-    RuntimeStack: 'PYTHON|3.7'
-    StartupCommand: 'python ./manage.py runserver 80'
     ScriptType: 'Inline Script'
     InlineScript: |
       echo "Installing Dependencies..."
