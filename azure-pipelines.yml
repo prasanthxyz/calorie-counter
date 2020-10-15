@@ -42,26 +42,18 @@ steps:
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
 
-- script: |
-    pushd '$(projectRoot)'
-    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
-  displayName: 'Run tests'
-
-- task: PublishTestResults@2
+- task: ArchiveFiles@2
   inputs:
-    testResultsFiles: "**/TEST-*.xml"
-    testRunTitle: 'Python $(PYTHON_VERSION)'
-  condition: succeededOrFailed()
+    rootFolderOrFile: '$(Build.SourcesDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(projectRoot)'
-    Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
@@ -70,6 +62,6 @@ steps:
     azureSubscription: 'Visual Studio Enterprise (175096bb-f044-4bdb-b85b-89df5352c518)'
     appType: 'webAppLinux'
     appName: 'calorie-counter-api'
-    package: '$(Build.ArtifactStagingDirectory)/**'
+    package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
     runtimeStack: 'PYTHON|3.7'
     startUpCommand: './manage.py runserver 80'
