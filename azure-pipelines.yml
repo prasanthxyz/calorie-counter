@@ -44,17 +44,26 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)'
+    rootFolderOrFile: '$(Build.SourcesDirectory)/backend'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
     replaceExistingArchive: true
 
-- task: AzureWebApp@1
+- task: AzureRmWebAppDeployment@4
   inputs:
+    ConnectionType: 'AzureRM'
     azureSubscription: 'Visual Studio Enterprise (175096bb-f044-4bdb-b85b-89df5352c518)'
     appType: 'webAppLinux'
-    appName: 'calorie-counter-api'
-    package: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
-    runtimeStack: 'PYTHON|3.7'
-    startUpCommand: './manage.py runserver 80'
+    WebAppName: 'calorie-counter-api'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
+    RuntimeStack: 'PYTHON|3.7'
+    StartupCommand: 'python ./manage.py runserver 80'
+    ScriptType: 'Inline Script'
+    InlineScript: |
+      echo "Installing Dependencies..."
+      python -m pip install --upgrade pip setuptools wheel
+      pip install -r requirements.txt
+      
+      echo "Migrating latest schema..."
+      python ./manage.py migrate
