@@ -7,11 +7,11 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 strategy:
   matrix:
-    Python37:
-      PYTHON_VERSION: '3.7'
+    Python36:
+      PYTHON_VERSION: '3.6'
   maxParallel: 3
 
 steps:
