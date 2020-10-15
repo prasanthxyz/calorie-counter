@@ -64,3 +64,12 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise (175096bb-f044-4bdb-b85b-89df5352c518)'
+    appType: 'webAppLinux'
+    appName: 'calorie-counter-api'
+    package: '$(Build.ArtifactStagingDirectory)/**'
+    runtimeStack: 'PYTHON|3.7'
+    startUpCommand: './manage.py runserver 80'
