@@ -50,18 +50,11 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
     replaceExistingArchive: true
 
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Visual Studio Enterprise (175096bb-f044-4bdb-b85b-89df5352c518)'
     appType: 'webAppLinux'
     appName: 'calorie-counter-api'
-    package: '$(System.DefaultWorkingDirectory)/_prasanthxyz.calorie-counter/drop/$(Build.BuildId).zip'
+    package: '$(Build.ArtifactStagingDirectory)/Application$(Build.BuildId).zip'
     runtimeStack: 'PYTHON|3.7'
     startUpCommand: './manage.py runserver 80'
