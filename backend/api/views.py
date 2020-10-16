@@ -15,9 +15,9 @@ def fooditem_list(request):
     if request.method == 'GET':
         fooditems = FoodItem.objects.all()
         
-        title = request.query_params.get('title', None)
-        if title is not None:
-            fooditems = fooditems.filter(title__icontains=title)
+        user = request.query_params.get('userid', None)
+        if user is not None:
+            fooditems = fooditems.filter(userid__icontains=user)
         
         api_serializer = ApiSerializer(fooditems, many=True)
         return JsonResponse(api_serializer.data, safe=False)
