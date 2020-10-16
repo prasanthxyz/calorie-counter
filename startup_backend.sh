@@ -1,5 +1,5 @@
 cd backend
-sudo apt-get install gcc python3-mysqldb libmysqlclient-dev
+sudo apt-get install gcc python3-mysqldb libmysqlclient-dev python-dev
 python -m pip install --upgrade pip setuptools wheel
 python -m pip install -r requirements.txt
 python ./manage.py migrate
