@@ -1,4 +1,11 @@
-FROM python:3.6
+FROM python:3.8.6
+
+ARG allow_hosts="*"
+ENV ALLOWED_HOSTS=$allow_hosts
+ARG django_secret="SECRET_KEY"
+ENV SECRET_KEY=$django_secret
+ARG database_secret=""
+ENV DB_PASS=$database_secret
 
 RUN mkdir /code
 WORKDIR /code
