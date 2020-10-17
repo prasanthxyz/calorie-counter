@@ -6,15 +6,15 @@ ARG django_secret="SECRET_KEY"
 ENV SECRET_KEY=$django_secret
 ARG database_secret=""
 ENV DB_PASS=$database_secret
+ARG debug="True"
+ENV DEBUG_MODE=$debug
 
 RUN mkdir /code
 WORKDIR /code
-
-RUN apt-get update && apt-get install vim git -y --no-install-recommends
-RUN git clone https://github.com/prasanthxyz/calorie-counter.git
-WORKDIR /code/calorie-counter/backend
-
+COPY requirements.txt /code/
 RUN pip install -r requirements.txt
+COPY . /code/
+
 RUN python ./manage.py migrate
 
 EXPOSE 8000

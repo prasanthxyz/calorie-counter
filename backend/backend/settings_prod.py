@@ -1,7 +1,7 @@
 from .settings import *
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = True
+DEBUG = os.getenv('DEBUG_MODE') == 'True'
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split()
 
 DATABASES = {
