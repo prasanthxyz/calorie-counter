@@ -14,9 +14,11 @@ ENV DJANGO_SETTINGS_MODULE=$django_config
 RUN mkdir /code
 WORKDIR /code
 COPY . /code/
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 RUN python ./manage.py migrate
 
 EXPOSE 8000
-CMD ["gunicorn", "--bind=0.0.0.0", "--workers=4", "backend.wsgi:application"]
+# CMD ["gunicorn", "--bind=0.0.0.0", "--workers=4", "backend.wsgi:application"]
+CMD ["python", "./manage.py", "runserver", "0.0.0.0:8000"]
