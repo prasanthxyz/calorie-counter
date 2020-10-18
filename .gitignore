@@ -75,3 +75,4 @@ venv.bak/
 .history
 
 **/settings_local.py
+**/staticfiles/**
