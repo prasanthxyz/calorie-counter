@@ -6,14 +6,15 @@ ARG django_secret="SECRET_KEY"
 ENV SECRET_KEY=$django_secret
 ARG database_secret=""
 ENV DB_PASS=$database_secret
-ARG debug="True"
+ARG debug="False"
 ENV DEBUG_MODE=$debug
+ARG django_config="backend.settings_prod"
+ENV DJANGO_SETTINGS_MODULE=$django_config
 
 RUN mkdir /code
 WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
 COPY . /code/
+RUN pip install -r requirements.txt
 
 RUN python ./manage.py migrate
 
