@@ -1,3 +1,5 @@
 from django.contrib import admin
+from api.models import FoodItem, DailyLog
 
-# Register your models here.
+admin.site.register(FoodItem)
+admin.site.register(DailyLog)
