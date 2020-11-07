@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Route, NavLink, BrowserRouter } from "react-router-dom";
+import Day from './Day';
+import Foods from './Foods';
 
 ReactDOM.render(
   <React.StrictMode>
