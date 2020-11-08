@@ -76,3 +76,5 @@ venv.bak/
 
 **/settings_local.py
 **/staticfiles/**
+
+**/package-lock.json
