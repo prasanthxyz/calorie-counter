@@ -1,7 +1,8 @@
-""" Views for FoodItem """
+""" Views for FoodItem and DailyLog """
 from rest_framework import viewsets
-from api.models import FoodItem
-from api.serializers import FoodItemSerializer
+from api.models import FoodItem, DailyLog
+from api.serializers import FoodItemSerializer, DailyLogSerializer
+from api.permissions import IsOwner
 
 
 class FoodItemViewSet(viewsets.ModelViewSet):
@@ -19,3 +20,12 @@ class FoodItemViewSet(viewsets.ModelViewSet):
         request.data.update({'user': request.user.id})
         # pylint: disable=no-member
         return super(FoodItemViewSet, self).partial_update(request, *args, **kwargs)
+
+
+class DailyLogViewSet(viewsets.ModelViewSet):
+    """ DailyLog CRUD ViewSet """
+    serializer_class = DailyLogSerializer
+    permission_classes = [IsOwner]
+
+    def get_queryset(self):
+        return DailyLog.objects.filter(item__user=self.request.user)

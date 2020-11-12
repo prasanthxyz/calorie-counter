@@ -5,14 +5,14 @@ from rest_framework import serializers
 from api.models import FoodItem, DailyLog
 
 class FoodItemSerializer(serializers.ModelSerializer):
-    """FoodItem Serializer"""
+    """ FoodItem Serializer """
     class Meta:
         model = FoodItem
         fields = '__all__'
 
 
 class DailyLogSerializer(serializers.ModelSerializer):
-    """DailyLog Serializer"""
+    """ DailyLog Serializer """
     class Meta:
         model = DailyLog
         fields = '__all__'

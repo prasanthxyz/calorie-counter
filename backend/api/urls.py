@@ -3,10 +3,11 @@ Urls for calorie-counter
 """
 from django.conf.urls import url, include
 from rest_framework import routers
-from . import views_user, views_food
+from . import views_user, views
 
 router = routers.DefaultRouter()
-router.register(r'fooditems', views_food.FoodItemViewSet, basename='fooditems')
+router.register(r'fooditems', views.FoodItemViewSet, basename='fooditems')
+router.register(r'dailylog', views.DailyLogViewSet, basename='dailylog')
 
 urlpatterns = [
     url(r'^signup$', views_user.signup, name='signup'),
